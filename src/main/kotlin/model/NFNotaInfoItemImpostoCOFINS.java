@@ -1,8 +1,0 @@
-package model;
-
-public class NFNotaInfoItemImpostoCOFINS extends DFBase {
-	private NFNotaInfoItemImpostoCOFINSAliquota aliquota;
-	private NFNotaInfoItemImpostoCOFINSQuantidade quantidade;
-	private NFNotaInfoItemImpostoCOFINSNaoTributavel naoTributavel;
-	private NFNotaInfoItemImpostoCOFINSOutrasOperacoes outrasOperacoes;
-}

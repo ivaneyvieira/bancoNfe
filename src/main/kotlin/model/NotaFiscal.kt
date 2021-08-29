@@ -1,0 +1,67 @@
+package model
+
+import com.fincatto.documentofiscal.nfe400.classes.nota.NFNota
+import java.time.ZonedDateTime
+
+class NotaFiscal(
+  val id: String,
+  val versao: String,
+  val uf: String,
+  val codigoRandomico: String?,
+  val naturezaOperacao: String?,
+  val modelo: String?,
+  val serie: String?,
+  val numeroNota: String?,
+  val dataHoraEmissao: ZonedDateTime?,
+  val dataHoraSaidaOuEntrada: ZonedDateTime?,
+  val tipo: String?,
+  val identificadorLocalDestinoOperacao: String?,
+  val codigoMunicipio: String?,
+  val tipoImpressao: String?,
+  val tipoEmissao: String?,
+  val digitoVerificador: Int?,
+  val ambiente: String?,
+  val finalidade: String?,
+  val operacaoConsumidorFinal: String?,
+  val indicadorPresencaComprador: String?,
+  val indIntermed: String?,
+  val programaEmissor: String?,
+  val versaoEmissor: String?,
+  val dataHoraContigencia: ZonedDateTime?,
+  val justificativaEntradaContingencia: String?,
+  val referenciadas: List<NFReferencia>,
+  val emitente: Emitente,
+  val destinatario: Destinatario,
+                ) : DataBase()
+
+fun NFNota.persist(): NotaFiscal {
+  val identificacao = info.identificacao
+  return NotaFiscal(id = info.identificador,
+                    versao = info.versao,
+                    uf = identificacao.uf.codigo,
+                    codigoRandomico = identificacao.codigoRandomico,
+                    naturezaOperacao = identificacao.naturezaOperacao,
+                    modelo = identificacao.modelo.codigo,
+                    serie = identificacao.serie,
+                    numeroNota = identificacao.numeroNota,
+                    dataHoraEmissao = identificacao.dataHoraEmissao,
+                    dataHoraSaidaOuEntrada = identificacao.dataHoraSaidaOuEntrada,
+                    tipo = identificacao.tipo.codigo,
+                    identificadorLocalDestinoOperacao = identificacao.identificadorLocalDestinoOperacao.codigo,
+                    codigoMunicipio = identificacao.codigoMunicipio,
+                    tipoImpressao = identificacao.tipoImpressao.codigo,
+                    tipoEmissao = identificacao.tipoEmissao.codigo,
+                    digitoVerificador = identificacao.digitoVerificador,
+                    ambiente = identificacao.ambiente.codigo,
+                    finalidade = identificacao.finalidade.codigo,
+                    operacaoConsumidorFinal = identificacao.operacaoConsumidorFinal.codigo,
+                    indicadorPresencaComprador = identificacao.indicadorPresencaComprador.codigo,
+                    indIntermed = identificacao.indIntermed.codigo,
+                    programaEmissor = identificacao.programaEmissor.codigo,
+                    versaoEmissor = identificacao.versaoEmissor,
+                    dataHoraContigencia = identificacao.dataHoraContigencia,
+                    justificativaEntradaContingencia = identificacao.justificativaEntradaContingencia,
+                    referenciadas = identificacao.referenciadas.mapNotNull { it.persist() },
+                    emitente = info.emitente.persist(),
+                    destinatario = info.destinatario.persist())
+}

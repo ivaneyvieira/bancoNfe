@@ -13,7 +13,8 @@ repositories {
 
 dependencies {
   testImplementation(kotlin("test"))
-  implementation("org.apache.commons:commons-lang3:3.0")
+  implementation("org.apache.commons:commons-lang3:3.12.0")
+  implementation("com.github.wmixvideo:nfe:3.0.62")
 }
 
 tasks.test {
